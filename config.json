@@ -1,4 +1,7 @@
 {
+     "screen_width":                         1920,
+     "screen_height":                        1080,
+
      "accepted_extensions_for_images":       [".jpg", ".png"],
 
      "unprocessed_images_directory":        "/home/mikson/data/images"
