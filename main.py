@@ -15,6 +15,16 @@ def cv_show(name, image):
         
     cv2.imshow(name, resized_image)
 
+def detect_edges(image, binary_threshold_low, binary_threshold_high):
+    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    blurred_image = cv2.GaussianBlur(gray_image, (7, 7), 0)
+    _, thresholded_image = cv2.threshold(blurred_image, binary_threshold_low, binary_threshold_high, cv2.THRESH_BINARY)
+    canny = cv2.Canny(thresholded_image, 0, 120)
+    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (7, 7))
+    return cv2.morphologyEx(canny, cv2.MORPH_CLOSE, kernel)
+
+
+
 
 
 config_path = os.path.join(os.path.dirname(__file__), 'config.json')
@@ -41,6 +51,6 @@ for image_filename in unprocessed_image_files:
     path = os.path.join(unprocessed_images_directory, image_filename)
     print("Displaying image:", path)
     image = cv2.imread(path)
-    cv_show(image_filename, image)
+    cv_show(image_filename, detect_edges(image, 200, 255))
     cv2.waitKey()
     cv2.destroyAllWindows()
