@@ -1,6 +1,8 @@
 import os
 import json
 
+import cv2
+
 
 
 config_path = os.path.join(os.path.dirname(__file__), 'config.json')
@@ -16,3 +18,15 @@ unprocessed_image_files = [
     and os.path.splitext(file)[1].lower() in accepted_extensions  
 ]
 print(f'Detected: {len(unprocessed_image_files)} images')
+
+if not unprocessed_image_files:
+    print("No unprocessed images found")
+    exit()
+    
+for image_filename in unprocessed_image_files:
+    path = os.path.join(unprocessed_images_directory, image_filename)
+    print("Displaying image:", path)
+    image = cv2.imread(path)
+    cv2.imshow(image_filename, image)
+    cv2.waitKey()
+    cv2.destroyAllWindows()
