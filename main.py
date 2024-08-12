@@ -45,16 +45,27 @@ def detect_edges(image, binary_threshold_low, binary_threshold_high):
 
 
 
-# Load config.json
+# Load user configuration from config.json
 config_path = os.path.join(os.path.dirname(__file__), 'config.json')
 with open(config_path, 'r') as config_file:
     config = json.load(config_file)
 
 screen_width = config['screen_width']
 screen_height = config['screen_height']
+
 accepted_extensions = config['accepted_extensions_for_images']
 unprocessed_images_directory = config['unprocessed_images_directory']
+
 detected_particles_directory = config['detected_particles_directory']
+excel_file = config['excel_file']
+
+scale_bar_width_pixels = config['scale_bar_width_pixels']
+scale_bar_value_micrometers = config['scale_bar_value_micrometers']
+pixel_to_micrometer = scale_bar_value_micrometers / scale_bar_width_pixels
+
+min_feret_bool = config['min_feret_diameter']
+max_feret_bool = config['max_feret_diameter']
+roundness_bool = config['roundness']
 
 
 
