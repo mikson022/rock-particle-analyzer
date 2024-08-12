@@ -26,6 +26,10 @@ pip install -r requirements.txt
 
 ## Features
 
+- Adjust contour detection real-time with a scrollbar
+![AdjustRealTime](screenshots/AdjustingScrollbarExample.png)
+
+
 ## Usage
 
 ## Contributing
