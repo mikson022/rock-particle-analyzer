@@ -4,6 +4,14 @@
 
      "accepted_extensions_for_images":       [".jpg", ".png"],
 
+     "scale_bar_width_pixels":               162,
+     "scale_bar_value_micrometers":          250,
+
+     "min_feret_diameter":                   true,
+     "max_feret_diameter":                   true,
+     "roundness":                            true,
+
      "unprocessed_images_directory":        "/home/mikson/data/images",
-     "detected_particles_directory":        "/home/mikson/data/detected_particles"
+     "detected_particles_directory":        "/home/mikson/data/detected_particles",
+     "excel_file":                          "/home/mikson/data/stats.xlsx"
 }
