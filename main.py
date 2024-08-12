@@ -33,13 +33,52 @@ def cv_show(name, image):
         
     cv2.imshow(name, resized_image)
 
-def detect_edges(image, binary_threshold_low, binary_threshold_high):
+def detect_edges(image, binary_threshold_low):
     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     blurred_image = cv2.GaussianBlur(gray_image, (7, 7), 0)
-    _, thresholded_image = cv2.threshold(blurred_image, binary_threshold_low, binary_threshold_high, cv2.THRESH_BINARY)
+    _, thresholded_image = cv2.threshold(blurred_image, binary_threshold_low, 255, cv2.THRESH_BINARY)
     canny = cv2.Canny(thresholded_image, 0, 120)
     kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (7, 7))
     return cv2.morphologyEx(canny, cv2.MORPH_CLOSE, kernel)
+
+def setup_trackbar(window_name, initial_threshold_low=200):
+    cv2.namedWindow(window_name)
+    cv2.createTrackbar('Threshold Low', window_name, initial_threshold_low, 255, lambda x: None)
+
+def get_trackbar_value(window_name):
+    threshold_low = cv2.getTrackbarPos('Threshold Low', window_name)
+    return threshold_low
+
+def process_image_with_scrollbars(image, image_filename):
+    setup_trackbar(image_filename)
+    
+    processed_image = image.copy()
+    contours = []
+    
+    cv_show(image_filename, processed_image)
+    cv2.moveWindow(image_filename, -1, 1)
+    
+    prev_threshold_low = get_trackbar_value(image_filename)
+    
+    while True:
+        threshold_low = get_trackbar_value(image_filename)
+        
+        if threshold_low != prev_threshold_low:
+            processed_image = image.copy()
+            edges_image = detect_edges(processed_image, threshold_low)
+            contours, _ = cv2.findContours(edges_image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+            cv2.drawContours(processed_image, contours, -1, (0, 0, 255), 1)
+            cv_show(image_filename, processed_image)
+            cv2.moveWindow(image_filename, 1, 1)
+            
+            prev_threshold_low = threshold_low
+        
+        key = cv2.waitKey(100) & 0xFF  
+        if key == ord('q'):  
+            break
+
+    cv2.destroyAllWindows()
+    return contours
 
 
 
@@ -87,11 +126,8 @@ for image_filename in unprocessed_image_files:
     path = os.path.join(unprocessed_images_directory, image_filename)
     print("Displaying image:", path)
     image = cv2.imread(path)
-    image = detect_edges(image, 200, 255)
     
-    new_image_name = add_timestamp_and_png(remove_extension(image_filename))
-    save_image(new_image_name, image, detected_particles_directory, 'Edge detected image saved')
+    process_image_with_scrollbars(image, image_filename)
     
-    cv_show(image_filename, image)
     cv2.waitKey()
     cv2.destroyAllWindows()
