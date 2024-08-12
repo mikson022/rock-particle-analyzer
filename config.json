@@ -4,5 +4,6 @@
 
      "accepted_extensions_for_images":       [".jpg", ".png"],
 
-     "unprocessed_images_directory":        "/home/mikson/data/images"
+     "unprocessed_images_directory":        "/home/mikson/data/images",
+     "detected_particles_directory":        "/home/mikson/data/detected_particles"
 }

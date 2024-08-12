@@ -1,4 +1,5 @@
 import os
+import time
 import json
 
 import cv2
@@ -14,6 +15,15 @@ def cv_show(name, image):
         resized_image = image
         
     cv2.imshow(name, resized_image)
+
+def save_image(name, image, path, message):
+    timestamp = int(time.time())
+    name = os.path.splitext(name)[0]
+    file_name = f'{name}_{timestamp}.png'
+    full_path = os.path.join(path, file_name)
+    os.makedirs(path, exist_ok=True)
+    cv2.imwrite(full_path, image)
+    print(f'{message} {full_path}')
 
 def detect_edges(image, binary_threshold_low, binary_threshold_high):
     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -35,6 +45,7 @@ screen_width = config['screen_width']
 screen_height = config['screen_height']
 accepted_extensions = config['accepted_extensions_for_images']
 unprocessed_images_directory = config['unprocessed_images_directory']
+detected_particles_directory = config['detected_particles_directory']
 
 unprocessed_image_files = [
     file for file in os.listdir(unprocessed_images_directory)
@@ -51,6 +62,8 @@ for image_filename in unprocessed_image_files:
     path = os.path.join(unprocessed_images_directory, image_filename)
     print("Displaying image:", path)
     image = cv2.imread(path)
-    cv_show(image_filename, detect_edges(image, 200, 255))
+    image = detect_edges(image, 200, 255)
+    save_image('Detect edges', image, detected_particles_directory, 'Edge detected image saved')
+    cv_show(image_filename, image)
     cv2.waitKey()
     cv2.destroyAllWindows()
