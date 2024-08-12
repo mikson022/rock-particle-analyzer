@@ -24,13 +24,14 @@ def save_image(file_name, image, path, message):
 
 # Image processing
 def cv_show(name, image):
+    global resized_image, resize_ratio
     img_height, img_width = image.shape[:2]
-    
     if img_width > screen_width or img_height > screen_height:
-        resized_image = cv2.resize(image, (int(image.shape[1] / 2), int(image.shape[0] / 2)))
+        resize_ratio = 0.5
+        resized_image = cv2.resize(image, (int(img_width * resize_ratio), int(img_height * resize_ratio)))
     else:
+        resize_ratio = 1.0
         resized_image = image
-        
     cv2.imshow(name, resized_image)
 
 def detect_edges(image, binary_threshold_low):
@@ -49,7 +50,7 @@ def get_trackbar_value(window_name):
     threshold_low = cv2.getTrackbarPos('Threshold Low', window_name)
     return threshold_low
 
-def process_image_with_scrollbars(image, image_filename):
+def process_with_scrollbar(image, image_filename):
     setup_trackbar(image_filename)
     
     processed_image = image.copy()
@@ -72,15 +73,20 @@ def process_image_with_scrollbars(image, image_filename):
             cv2.moveWindow(image_filename, 1, 1)
             
             prev_threshold_low = threshold_low
+            
+        cv2.setMouseCallback(image_filename, mouse_callback, (contours, processed_image, image_filename))
         
         key = cv2.waitKey(100) & 0xFF  
         if key == ord('q'):  
             break
 
     cv2.destroyAllWindows()
-    return contours
 
-
+def mouse_callback(event, x, y, flags, param):
+    if event == cv2.EVENT_LBUTTONDOWN:
+        original_x = int(x / resize_ratio)
+        original_y = int(y / resize_ratio)
+        print(f"Mouse clicked at: ({original_x}, {original_y})")
 
 
 
@@ -127,7 +133,7 @@ for image_filename in unprocessed_image_files:
     print("Displaying image:", path)
     image = cv2.imread(path)
     
-    process_image_with_scrollbars(image, image_filename)
+    process_with_scrollbar(image, image_filename)
     
     cv2.waitKey()
     cv2.destroyAllWindows()
