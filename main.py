@@ -26,6 +26,13 @@ def save_image(file_name, image, path, message):
 
 
 # Extract data
+def get_min_feret(contour):
+    rect = cv2.minAreaRect(contour)
+    box = cv2.boxPoints(rect)  
+    box = np.intp(box)
+    width, height = rect[1]
+    return pixel_to_micrometer * min(width, height)
+
 def get_max_feret(contour):
     
     def distance(p1, p2):
@@ -60,6 +67,12 @@ def get_max_feret(contour):
                     max_distance = dist
     
     return pixel_to_micrometer * max_distance
+
+def get_roundness(contour):
+    center, radius = cv2.minEnclosingCircle(contour)
+    center = (int(center[0]), int(center[1]))
+    roundness = cv2.contourArea(contour) / (np.pi * (radius ** 2))
+    return roundness
 
 
 
@@ -140,12 +153,14 @@ def mouse_callback(event, x, y, flags, param):
                 save_image(f'{image_filename}', cropped_image, detected_particles_directory, 'Particle image saved:')
                 
                 if min_feret_bool:
-                    pass
+                    min_feret = get_min_feret(contour)
+                    print(f'Minimum feret: {get_min_feret(contour)}μm')
                 if max_feret_bool:
                     max_feret = get_max_feret(contour)
-                    print(f'Maximum feret: {get_max_feret(contour)}um')
+                    print(f'Maximum feret: {get_max_feret(contour)}μm')
                 if roundness_bool:
-                    pass
+                    roundness = get_roundness(contour)
+                    print(f'Roundness: {get_roundness(contour)}%\n')
                 
                 break
 
