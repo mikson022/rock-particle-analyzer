@@ -3,6 +3,7 @@ import time
 import json
 
 import cv2
+import numpy as np
 
 
 
@@ -21,6 +22,46 @@ def save_image(file_name, image, path, message):
     os.makedirs(path, exist_ok=True)
     cv2.imwrite(full_path, image)
     print(f'{message} {full_path}')
+
+
+
+# Extract data
+def get_max_feret(contour):
+    
+    def distance(p1, p2):
+        return np.linalg.norm(np.array(p1) - np.array(p2))
+    
+    def rotate_contour(contour, angle):
+        M = cv2.moments(contour)
+        if M['m00'] == 0:
+            return contour  
+        cX = int(M['m10'] / M['m00'])
+        cY = int(M['m01'] / M['m00'])
+        center = (cX, cY)
+        rotation_matrix = cv2.getRotationMatrix2D(center, angle, 1.0)
+        rotated_contour = cv2.transform(contour, rotation_matrix)
+        return rotated_contour
+    
+    if len(contour.shape) == 2:
+        contour = contour.reshape(-1, 1, 2)
+    
+    hull = cv2.convexHull(contour, returnPoints=True)
+    
+    max_distance = 0
+    num_angles = 360
+    angle_step = 360 / num_angles
+    
+    for angle in range(0, 360, int(angle_step)):
+        rotated_contour = rotate_contour(hull, angle)
+        for i in range(len(rotated_contour)):
+            for j in range(i + 1, len(rotated_contour)):
+                dist = distance(rotated_contour[i][0], rotated_contour[j][0])
+                if dist > max_distance:
+                    max_distance = dist
+    
+    return pixel_to_micrometer * max_distance
+
+
 
 # Image processing
 def cv_show(name, image):
