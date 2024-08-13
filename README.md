@@ -5,8 +5,8 @@ RPA is a script designed to process microscopic images of rock particles and ext
 ## Table of Contents
 
 - [Introduction](#introduction)
-- [Dependencies](#dependencies)
 - [Features](#features)
+- [Dependencies](#dependencies)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [Known Issues](#known-issues)
@@ -15,15 +15,6 @@ RPA is a script designed to process microscopic images of rock particles and ext
 ## Introduction
 
 Developed in response to a request from a university research project, this tool automates the process of measuring particle characteristics.
-
-## Dependencies
-
-Ensure you have [Python 3.6](https://www.python.org/downloads/) or higher installed.
-
-To install the necessary dependencies, run the following command in your terminal from the project's root directory:
-```bash
-pip install -r requirements.txt
-```
 
 ## Features
 
@@ -35,6 +26,15 @@ pip install -r requirements.txt
      - Roundness
 - Excel Export: 
      - Particle data is automatically exported for further analysis.
+
+## Dependencies
+
+Ensure you have [Python 3.6](https://www.python.org/downloads/) or higher installed.
+
+To install the necessary dependencies, run the following command in your terminal from the project's root directory:
+```bash
+pip install -r requirements.txt
+```
 
 ## Usage
 
