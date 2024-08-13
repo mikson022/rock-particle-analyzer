@@ -6,6 +6,7 @@ RPA is a script designed to process microscopic images of rock particles and ext
 
 - [Introduction](#introduction)
 - [Dependencies](#dependencies)
+- [Features](#features)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [Known Issues](#known-issues)
@@ -17,26 +18,43 @@ Developed in response to a request from a university research project, this tool
 
 ## Dependencies
 
-Install [Python](https://www.python.org/downloads/) 3.6 or higher.
+Ensure you have [Python 3.6](https://www.python.org/downloads/) or higher installed.
 
-Run the following command in your terminal from the project's root directory
+To install the necessary dependencies, run the following command in your terminal from the project's root directory:
 ```bash
 pip install -r requirements.txt
 ```
 
+## Features
+
+- Real-time Adjustable Contour Detection: 
+     - Modify contour detection parameters on the fly for precise measurements.
+- Particle Characteristics Calculation:
+     - Minimum Feret Diameter
+     - Maximum Feret Diameter
+     - Roundness
+- Excel Export: 
+     - Particle data is automatically exported for further analysis.
+
 ## Usage
 
-- Adjust config.json ![config.json](screenshots/configExample.png)
+1. Configuration:
+     - Adjust config.json to suit your needs.
+     - The scale bar pixel width must be manually measured by the user and updated in config.json before running the script.
+     
+     ![config.json](screenshots/Measuring.png)
+     ![config.json](screenshots/configExample.png)
+     
 
-- Scale bar pixel width have to be manually measured by the user and updated in config.json before running the script
-![config.json](screenshots/Measuring.png)
+2. Running the script:
 
-- Run the command from project's root directory
-```bash
-python3 main.py
-```
+     - Execute the following command from the project's root directory:
 
-- Zoom in and adjust contour detection real-time with a scrollbar to get the contour alignment![AdjustRealTime](screenshots/AdjustingScrollbarExample.png)
+     ```bash
+     python3 main.py
+     ```
+     - Use the scrollbar to zoom in and adjust contour detection in real-time, ensuring proper contour alignment.
+     ![AdjustRealTime](screenshots/AdjustingScrollbarExample.png)
 
 ## Contributing
 
