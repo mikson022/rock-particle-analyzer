@@ -4,7 +4,7 @@
 
      "accepted_extensions_for_images":       [".jpg", ".png"],
 
-     "scale_bar_width_pixels":               162,
+     "scale_bar_width_pixels":               81,
      "scale_bar_value_micrometers":          250,
 
      "min_feret_diameter":                   true,
