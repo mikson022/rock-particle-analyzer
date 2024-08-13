@@ -39,21 +39,25 @@ pip install -r requirements.txt
 ## Usage
 
 1. Configuration:
-     - Adjust config.json to suit your needs.
-     - The scale bar pixel width must be manually measured by the user and updated in config.json before running the script.
+     1. Run the script initially without adjusting the scrollbar.
+
+     2. Use the coordinate system provided by the script to measure the scale bar's pixel width.
+     ![scale-bar](screenshots/ScaleBar.png)
+     ![measuring](screenshots/Measuring.png)
+
+     3. Update the `config.json` file with this measurement to ensure accurate data extraction.
      
-     ![config.json](screenshots/Measuring.png)
-     ![config.json](screenshots/configExample.png)
+     ![configuring](screenshots/config.png)
      
 
 2. Running the script:
 
-     - Execute the following command from the project's root directory:
+     1. Execute the following command from the project's root directory:
 
      ```bash
      python3 main.py
      ```
-     - Use the scrollbar to zoom in and adjust contour detection in real-time, ensuring proper contour alignment.
+     2. Use the scrollbar to zoom in and adjust contour detection in real-time, ensuring proper contour alignment.
      ![AdjustRealTime](screenshots/AdjustingScrollbarExample.png)
 
 ## Contributing
