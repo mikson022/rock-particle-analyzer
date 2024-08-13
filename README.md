@@ -63,7 +63,7 @@ pip install -r requirements.txt
      - Use the scrollbar to zoom in and adjust contour detection in real-time, ensuring proper contour alignment.
      ![AdjustRealTime](screenshots/AdjustingScrollbarExample.png)
 
-     - Once the contour is properly aligned, click on it. The data will be appeneded to Excel file and displayed in the console.
+     - Once the contour is properly aligned, click on it. The data will be appeneded to Excel file and displayed in the console. Press `e` to display gathered data.
      ![ClickAndDone](screenshots/ClickAndDone.gif)
 
 ## Contributing
