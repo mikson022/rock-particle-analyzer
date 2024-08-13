@@ -173,6 +173,11 @@ def process_with_scrollbar(image, image_filename):
         key = cv2.waitKey(100) & 0xFF  
         if key == ord('q'):  
             break
+        if key == ord('e'): 
+            print(f'Reading excel file:{excel_file}')
+            ensure_excel_file_exists()
+            df = pd.read_excel(excel_file)
+            print(df)
 
     cv2.destroyAllWindows()
 
