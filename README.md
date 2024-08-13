@@ -47,9 +47,8 @@ pip install -r requirements.txt
 
      - Use the coordinate system provided by the script to measure the scale bar's pixel width.
      ![scale-bar](screenshots/ScaleBar.png)
-     ![measuring](screenshots/Measuring.png)
 
-     - Update the `config.json` file with this measurement to ensure accurate data extraction.
+     - Update the `config.json` file with the measurement to ensure accurate data extraction.
      
      ![configuring](screenshots/config.png)
      
