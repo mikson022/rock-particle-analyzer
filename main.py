@@ -4,6 +4,7 @@ import json
 
 import cv2
 import numpy as np
+import pandas as pd
 
 
 
@@ -73,6 +74,45 @@ def get_roundness(contour):
     center = (int(center[0]), int(center[1]))
     roundness = cv2.contourArea(contour) / (np.pi * (radius ** 2))
     return roundness
+
+
+
+# Excel
+def ensure_excel_file_exists():
+    if not os.path.exists(excel_file):
+        df = pd.DataFrame(columns=required_columns)
+        df.to_excel(excel_file, index=False)
+    else:
+        df = pd.read_excel(excel_file)
+        
+        for col in required_columns:
+            if col not in df.columns:
+                df[col] = pd.NA
+        
+        df = df[required_columns]
+        
+        with pd.ExcelWriter(excel_file, engine='openpyxl', mode='w') as writer:
+            df.to_excel(writer, index=False, sheet_name='Sheet1')
+
+def append_row(photo_name, min_feret_diameter='N/A', max_feret_diameter='N/A', roundness='N/A'):
+    ensure_excel_file_exists()
+    
+    new_data_df = pd.DataFrame({
+        'Photo name': [photo_name],
+        'Minimum feret diameter (μm)': [min_feret_diameter],
+        'Maximum feret diameter (μm)': [max_feret_diameter],
+        'Roundness': [roundness]
+    })
+    
+    existing_df = pd.read_excel(excel_file)
+    existing_df = existing_df[required_columns]
+    new_data_df = new_data_df.dropna(axis=1, how='all')
+    updated_df = pd.concat([existing_df, new_data_df], ignore_index=True)
+    
+    with pd.ExcelWriter(excel_file, engine='openpyxl', mode='w') as writer:
+        updated_df.to_excel(writer, index=False, sheet_name='Sheet1')
+    
+    print(f"Data has been appended to '{excel_file}'.")
 
 
 
@@ -152,6 +192,9 @@ def mouse_callback(event, x, y, flags, param):
                 image_filename = add_timestamp_and_png(f'{image_filename}_particle')
                 save_image(f'{image_filename}', cropped_image, detected_particles_directory, 'Particle image saved:')
                 
+                
+                
+                min_feret, max_feret, roundness = 'N/A'
                 if min_feret_bool:
                     min_feret = get_min_feret(contour)
                     print(f'Minimum feret: {get_min_feret(contour)}μm')
@@ -161,6 +204,8 @@ def mouse_callback(event, x, y, flags, param):
                 if roundness_bool:
                     roundness = get_roundness(contour)
                     print(f'Roundness: {get_roundness(contour)}%\n')
+                    
+                append_row(image_filename, min_feret, max_feret, roundness)
                 
                 break
 
@@ -181,6 +226,7 @@ unprocessed_images_directory = config['unprocessed_images_directory']
 
 detected_particles_directory = config['detected_particles_directory']
 excel_file = config['excel_file']
+required_columns = ['Photo name', 'Minimum feret diameter (μm)', 'Maximum feret diameter (μm)', 'Roundness']
 
 scale_bar_width_pixels = config['scale_bar_width_pixels']
 scale_bar_value_micrometers = config['scale_bar_value_micrometers']
