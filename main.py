@@ -115,7 +115,7 @@ def process_with_scrollbar(image, image_filename):
             
             prev_threshold_low = threshold_low
             
-        cv2.setMouseCallback(image_filename, mouse_callback, (contours, processed_image, image_filename))
+        cv2.setMouseCallback(image_filename, mouse_callback, (image_filename, processed_image, contours,))
         
         key = cv2.waitKey(100) & 0xFF  
         if key == ord('q'):  
@@ -124,10 +124,32 @@ def process_with_scrollbar(image, image_filename):
     cv2.destroyAllWindows()
 
 def mouse_callback(event, x, y, flags, param):
+    image_filename, image, contours = param
     if event == cv2.EVENT_LBUTTONDOWN:
         original_x = int(x / resize_ratio)
         original_y = int(y / resize_ratio)
-        print(f"Mouse clicked at: ({original_x}, {original_y})")
+        #print(f"Mouse clicked at: ({original_x}, {original_y})")
+        
+        for contour in contours:
+            if cv2.pointPolygonTest(contour, (original_x, original_y), False) >= 0:
+                x, y, w, h = cv2.boundingRect(contour)
+                cropped_image = image[y:y+h, x:x+w]
+                
+                image_filename = remove_extension(image_filename)
+                image_filename = add_timestamp_and_png(f'{image_filename}_particle')
+                save_image(f'{image_filename}', cropped_image, detected_particles_directory, 'Particle image saved:')
+                
+                if min_feret_bool:
+                    pass
+                if max_feret_bool:
+                    max_feret = get_max_feret(contour)
+                    print(f'Maximum feret: {get_max_feret(contour)}um')
+                if roundness_bool:
+                    pass
+                
+                break
+
+
 
 
 
