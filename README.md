@@ -1,6 +1,8 @@
-# RPA: Rock-Particle-Analyzer
+# Rock-Particle-Analyzer (RPA)
 
-RPA is a script designed to process microscopic images of rock particles and extract relevant data.
+RPA automates: particle contour detection, measurements and data collection. Users dynamically adjust contour detection parameter to ensure accurate results. 
+
+Created to address the needs of a university research project. 
 
 ## Table of Contents
 
@@ -14,18 +16,20 @@ RPA is a script designed to process microscopic images of rock particles and ext
 
 ## Introduction
 
-Developed in response to a request from a university research project, this tool automates the process of measuring particle characteristics.
+
 
 ## Features
 
 - Real-time Adjustable Contour Detection: 
      - Modify contour detection parameters on the fly for precise measurements.
+     - Press `q` when the image processing window is focused to stop processing.
+     - Press `e` when the image processing window is focused to display gathered data from Excel.
 - Particle Characteristics Calculation:
      - Minimum Feret Diameter
      - Maximum Feret Diameter
      - Roundness
 - Excel Export: 
-     - Particle data is automatically exported for further analysis.
+     - Particle data is automatically saved to an Excel file upon contour click.
 
 ## Dependencies
 
@@ -59,6 +63,9 @@ pip install -r requirements.txt
      ```
      - Use the scrollbar to zoom in and adjust contour detection in real-time, ensuring proper contour alignment.
      ![AdjustRealTime](screenshots/AdjustingScrollbarExample.png)
+
+     - Once the contour is properly aligned, click on it. The data will be appeneded to Excel file and displayed in the console.
+     ![ClickAndDone](screenshots/ClickAndDone.gif)
 
 ## Contributing
 
