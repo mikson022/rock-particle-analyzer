@@ -46,11 +46,10 @@ pip install -r requirements.txt
      - Run the script initially without adjusting the scrollbar.
 
      - Use the coordinate system provided by the script to measure the scale bar's pixel width.
-     ![scale-bar](screenshots/ScaleBar.png)
+     <img src="screenshots/ScaleBar.png" alt="ScaleBarMeasurement" title="Red dots are (x,y) points shown">
 
      - Update the `config.json` file with the measurement to ensure accurate data extraction.
-     
-     ![configuring](screenshots/config.png)
+     <img src="screenshots/config.png" alt="ConfigExample" title="Example values">
      
 
 2. Running the script:
@@ -61,10 +60,10 @@ pip install -r requirements.txt
      python3 main.py
      ```
      - Use the scrollbar to zoom in and adjust contour detection in real-time, ensuring proper contour alignment.
-     ![AdjustRealTime](screenshots/AdjustingScrollbarExample.png)
+     <img src="screenshots/AdjustingScrollbarExample.png" alt="Adjust Real-Time" title="Three different values and their results">
 
-     - Once the contour is properly aligned, click on it. The data will be appeneded to Excel file and displayed in the console. Press `e` to display gathered data.
-     ![ClickAndDone](screenshots/ClickAndDone.gif)
+     - Once the contour is properly aligned, click on it. The data will be appeneded to Excel file and displayed in the console. Press `e` to display all gathered data from Excel file.
+     <img src="screenshots/ClickAndDone.gif" alt="Example workflow" title="Example workflow, zoom in, adjust contour, click on it, repeat for the next particle">
 
 ## Contributing
 
