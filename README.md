@@ -1,6 +1,6 @@
 # Rock-Particle-Analyzer (RPA)
 
-RPA automates: particle contour detection, measurements and data collection. Users dynamically adjust contour detection parameter to ensure accurate results. 
+A Python script developed to automate data extraction from microscopic images of rock particles and export the results to Excel for further analysis. The tool was developed to accelerate the research process.
 
 Created to address the needs of a university research project. 
 
