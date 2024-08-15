@@ -43,15 +43,20 @@ pip install -r requirements.txt
 ## Usage
 
 1. Configuration:
+
      - Run the script initially without adjusting the scrollbar.
 
      - Use the coordinate system provided by the script to measure the scale bar's pixel width.
+
+     - **Note on Resizing:** The script will display the resize ratio in the console when the image is displayed. If the image is resized (different than 1), you need to multiply the measured width of the scale bar by 2 to get the correct pixel width for the configuration.
+
+     - **Example** Here the calculated width will be `(904 - 824 + 1) * 2 = 162`. This accounts for the full pixel width across the measured distance. 
+
      <img src="screenshots/ScaleBar.png" alt="ScaleBarMeasurement" title="Red dots are (x,y) points shown">
 
      - Update the `config.json` file with the measurement to ensure accurate data extraction.
      <img src="screenshots/config.png" alt="ConfigExample" title="Example values">
      
-
 2. Running the script:
 
      - Execute the following command from the project's root directory:
