@@ -127,6 +127,7 @@ def cv_show(name, image):
         resize_ratio = 1.0
         resized_image = image
     cv2.imshow(name, resized_image)
+    print(f'Image resize multiplier applied: {resize_ratio}')
 
 def detect_edges(image, binary_threshold_low):
     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
