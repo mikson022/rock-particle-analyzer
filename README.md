@@ -14,7 +14,7 @@ A Python script developed to automate data extraction from microscopic images of
 
 ## Introduction
 
-
+Humans are about to return to the moon with the upcoming Artemis mission. To reduce costs, a large focus is set on using resources on the moon to build a base or build solar cells. This resource is called regolith, the fine powderlike substance that can be found on the surface of the moon. In order to test machines and manufacturing processes with this powder, simulants are produced on earth. These regolith simulants mimic the properties of various soil samples brought to Earth during the Apollo program. To verify the properties of the simulant and compare the simulants of different research institutes around the world, its properties need to be analyzed. By taking a large amount of microscopic pictures and analyzing the outline of the particles a lot of information can be extracted, like the Feret diameter or the roundness. This program helps to facilitate the process of analyzing those particles and getting values that can later be compared.
 
 ## Features
 
