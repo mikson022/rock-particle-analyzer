@@ -1,8 +1,6 @@
 # Rock-Particle-Analyzer (RPA)
 
-A Python script developed to automate data extraction from microscopic images of rock particles and export the results to Excel for further analysis. The tool was developed to accelerate the research process.
-
-Created to address the needs of a university research project. 
+A Python script developed to automate data extraction from microscopic images of rock particles, by analyzing outlines of the particles and exporting the results to Excel for further analysis. Created to address the needs of a university research project and accelerate its process.
 
 ## Table of Contents
 
